@@ -8,7 +8,11 @@ use crate::context::PokeConfig;
 
 pub fn load_auth_config<'a>() -> Option<AuthConfig<'a>> {
     match config_handler::load_from_file::<AuthConfig>(AUTH_CONFIG_FILE_PATH) {
-        Ok(conf) => Some(conf),
+        Ok(Some(conf)) => Some(conf),
+        Ok(None) => {
+            tracing::warn!("Authentication file invalid, ignoring.");
+            None
+        }
         Err(err) => {
             tracing::info!("Failed to load auth config: {}", err);
             None
@@ -18,7 +22,7 @@ pub fn load_auth_config<'a>() -> Option<AuthConfig<'a>> {
 
 pub fn load_config() -> PokeConfig {
     match config_handler::load_from_file::<PokeConfigLoader>(CONFIG_FILE_PATH) {
-        Ok(conf) => {
+        Ok(Some(conf)) => {
             return PokeConfig {
                 channel: conf.channel.clone(),
                 missing_pokemon_ball: conf
@@ -33,6 +37,11 @@ pub fn load_config() -> PokeConfig {
                 skip_catching_pokemon: conf.skip_catching_pokemon.unwrap_or(false),
                 stop_on_no_money: conf.stop_on_no_money.unwrap_or(true),
             };
+        }
+        Ok(None) => {
+            tracing::error!("Config file is invalid. Please fix it or delete it.");
+
+            std::process::exit(1);
         }
         Err(err) => {
             tracing::warn!("Failed to load config: {}", err);
