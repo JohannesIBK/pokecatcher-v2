@@ -84,3 +84,21 @@ pub fn purchase_successful(msg: &str) -> bool {
         message == "Purchase successful!" || message == "Kauf erfolgreich!"
     })
 }
+
+pub fn has_no_money(msg: &str) -> bool {
+    msg.split_once(' ').is_some_and(|(_, message)| {
+        message.starts_with("You don’t have enough") || message.starts_with("Du hast nicht genug")
+    })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_has_no_pokeball_german() {
+        let message = "@JohannesIBK Du besitzt diesen Ball nicht. Überprüfe die Erweiterung, um deine Items zu sehen.";
+
+        assert!(has_no_pokeball(message));
+    }
+}

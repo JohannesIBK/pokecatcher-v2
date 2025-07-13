@@ -8,6 +8,7 @@ pub struct PokeConfigLoader {
     pub skip_catching_pokemon: Option<bool>,
     pub should_buy_pokeball: Option<bool>,
     pub pokeball_buy_amount: Option<u8>,
+    pub stop_on_no_money: Option<bool>,
 }
 
 #[derive(Debug, serde::Serialize, serde::Deserialize)]

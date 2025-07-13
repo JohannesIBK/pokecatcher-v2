@@ -1,4 +1,4 @@
 /target
-./auth_config.bin
+.authdata
 .idea/
 .DS_Store

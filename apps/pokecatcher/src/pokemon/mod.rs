@@ -12,8 +12,9 @@ use self::utils::{
     starts_with_mention,
 };
 use crate::context::{BotContext, SendMessageDto};
+use crate::pokemon::utils::has_no_money;
 
-pub async fn handle_pokemon_message(message: Privmsg<'_>, context: Arc<BotContext>) -> Result<()> {
+pub async fn handle_pokemon_message(message: Privmsg<'_>, context: &Arc<BotContext>) -> Result<()> {
     // Ignore when the message is not from the poke bot
     if message.sender().id() != "519435394" {
         return Ok(());
@@ -86,6 +87,11 @@ pub async fn handle_pokemon_message(message: Privmsg<'_>, context: Arc<BotContex
                     message: Cow::Owned(format!("!pokecatch {pokeball}")),
                 })
                 .await?;
+        }
+
+        if context.poke_config.stop_on_no_money && has_no_money(message.text()) {
+            tracing::error!("No money, exiting");
+            std::process::exit(0);
         }
     }
 

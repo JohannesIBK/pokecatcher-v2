@@ -7,9 +7,9 @@ pub use crate::structs::{AuthConfig, PokeConfigLoader};
 mod structs;
 
 pub fn load_from_file<Config: serde::de::DeserializeOwned>(path: &str) -> Result<Config> {
-    let content = std::fs::read(path).context("Failed to read config file")?;
+    let content = std::fs::read(path)?;
 
-    serde_json::from_slice(&content).context("Failed to parse config file")
+    Ok(serde_json::from_slice(&content)?)
 }
 
 pub fn write_auth_config<P: AsRef<Path>>(path: P, config: &AuthConfig) -> Result<()> {

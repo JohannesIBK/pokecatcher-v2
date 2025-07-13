@@ -20,7 +20,7 @@ pub struct SendMessageDto {
 impl SendMessageDto {
     pub fn pokecheck(channel: String) -> Self {
         Self {
-            message: Cow::Borrowed("pokecheck"),
+            message: Cow::Borrowed("!pokecheck"),
             channel,
         }
     }
@@ -34,4 +34,5 @@ pub struct PokeConfig {
     pub skip_catching_pokemon: bool,
     pub should_buy_pokeball: bool,
     pub pokeball_buy_amount: u8,
+    pub stop_on_no_money: bool,
 }

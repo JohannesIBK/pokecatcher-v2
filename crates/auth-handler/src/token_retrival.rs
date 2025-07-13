@@ -28,6 +28,8 @@ pub async fn get_user_token(client_id: &str, token: Option<AuthConfig<'_>>) -> R
     )
     .await
     {
+        tracing::info!("Using existing token");
+
         return Ok(token);
     }
 

@@ -1,4 +1,4 @@
 mod handle_message;
-mod structs;
+mod self_destruction;
 
 pub use handle_message::handle_message;

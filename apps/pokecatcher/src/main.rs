@@ -30,7 +30,7 @@ async fn main() {
             token
         }
         Err(err) => {
-            tracing::error!("Failed to get user token: {}", err);
+            tracing::error!("Failed to get user token: {:?}", err);
             exit(1);
         }
     };
@@ -70,7 +70,7 @@ async fn main() {
 
                 tracing::info!("Sending message {} to channel: {}", message.message, message.channel);
                 if let Err(err) = client.privmsg(message.channel.as_str(), &message.message).send().await {
-                    tracing::error!("Failed to send message: {}", err);
+                    tracing::error!("Failed to send message: {:?}", err);
                 }
             }
             msg = client.recv() => {
@@ -83,9 +83,9 @@ async fn main() {
                 if let Err(err) = handle_message(
                     &mut client,
                     msg,
-                    context.clone(),
+                    &context,
                 ).await {
-                    tracing::error!("Failed to handle message: {}", err);
+                    tracing::error!("Failed to handle message: {:?}", err);
                 }
             }
         }

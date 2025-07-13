@@ -17,7 +17,7 @@ pub fn load_auth_config<'a>() -> Option<AuthConfig<'a>> {
 }
 
 pub fn load_config() -> PokeConfig {
-    match config_handler::load_from_file::<PokeConfigLoader>(AUTH_CONFIG_FILE_PATH) {
+    match config_handler::load_from_file::<PokeConfigLoader>(CONFIG_FILE_PATH) {
         Ok(conf) => {
             return PokeConfig {
                 missing_pokemon_ball: conf
@@ -30,10 +30,11 @@ pub fn load_config() -> PokeConfig {
                 only_catch_missing: conf.only_catch_missing.unwrap_or(false),
                 should_buy_pokeball: conf.should_buy_pokeball.unwrap_or(false),
                 skip_catching_pokemon: conf.skip_catching_pokemon.unwrap_or(false),
+                stop_on_no_money: conf.stop_on_no_money.unwrap_or(true),
             };
         }
         Err(err) => {
-            tracing::warn!("Failed to load auth config: {}", err);
+            tracing::warn!("Failed to load config: {}", err);
         }
     };
 
@@ -44,6 +45,7 @@ pub fn load_config() -> PokeConfig {
         only_catch_missing: false,
         should_buy_pokeball: false,
         skip_catching_pokemon: false,
+        stop_on_no_money: true,
     };
 
     write_poke_config(&default_config);
@@ -66,6 +68,7 @@ pub fn write_poke_config(config: &PokeConfig) {
     config_handler::write_config_file(
         CONFIG_FILE_PATH,
         &PokeConfigLoader {
+            stop_on_no_money: Some(config.stop_on_no_money),
             missing_pokemon_ball: Some(config.missing_pokemon_ball.clone()),
             default_pokemon_ball: Some(config.default_pokemon_ball.clone()),
             pokeball_buy_amount: Some(config.pokeball_buy_amount),
