@@ -847,6 +847,7 @@ dependencies = [
  "anyhow",
  "auth-handler",
  "config-handler",
+ "log",
  "tmi",
  "tokio",
  "tracing",

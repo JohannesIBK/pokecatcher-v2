@@ -10,6 +10,7 @@ tracing-subscriber = "0.3.19"
 anyhow = { workspace = true }
 tokio = { workspace = true }
 tracing = { workspace = true }
+log = { workspace = true }
 
 auth-handler = { path = "../../crates/auth-handler" }
 config-handler = { path = "../../crates/config-handler" }
