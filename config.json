@@ -4,5 +4,6 @@
   "only_catch_missing": false,
   "skip_catching_pokemon": false,
   "should_buy_pokeball": true,
-  "pokeball_buy_amount": 10
+  "pokeball_buy_amount": 10,
+  "channel": "migisch"
 }

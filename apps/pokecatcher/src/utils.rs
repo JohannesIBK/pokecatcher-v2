@@ -20,6 +20,7 @@ pub fn load_config() -> PokeConfig {
     match config_handler::load_from_file::<PokeConfigLoader>(CONFIG_FILE_PATH) {
         Ok(conf) => {
             return PokeConfig {
+                channel: conf.channel.clone(),
                 missing_pokemon_ball: conf
                     .missing_pokemon_ball
                     .unwrap_or(Cow::Borrowed("ultraball")),
@@ -39,6 +40,7 @@ pub fn load_config() -> PokeConfig {
     };
 
     let default_config = PokeConfig {
+        channel: "deemonrider".to_string(),
         missing_pokemon_ball: Cow::Borrowed("ultraball"),
         pokeball_buy_amount: 10,
         default_pokemon_ball: Cow::Borrowed("pokeball"),
@@ -68,6 +70,7 @@ pub fn write_poke_config(config: &PokeConfig) {
     config_handler::write_config_file(
         CONFIG_FILE_PATH,
         &PokeConfigLoader {
+            channel: config.channel.clone(),
             stop_on_no_money: Some(config.stop_on_no_money),
             missing_pokemon_ball: Some(config.missing_pokemon_ball.clone()),
             default_pokemon_ball: Some(config.default_pokemon_ball.clone()),

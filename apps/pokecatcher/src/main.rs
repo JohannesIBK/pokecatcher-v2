@@ -57,7 +57,7 @@ async fn main() {
         .expect("Failed to connect");
 
     client
-        .join_all(&["migisch"])
+        .join_all(&[context.poke_config.channel.as_str()])
         .await
         .expect("Failed to join channels");
 

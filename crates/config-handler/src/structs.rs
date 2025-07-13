@@ -9,6 +9,7 @@ pub struct PokeConfigLoader {
     pub should_buy_pokeball: Option<bool>,
     pub pokeball_buy_amount: Option<u8>,
     pub stop_on_no_money: Option<bool>,
+    pub channel: String,
 }
 
 #[derive(Debug, serde::Serialize, serde::Deserialize)]

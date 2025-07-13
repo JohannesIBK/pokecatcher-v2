@@ -24,14 +24,14 @@ pub async fn handle_message(
                 .await
                 .context("Failed to reconnect to twitch irc")?;
             client
-                .join_all(&["migisch"])
+                .join_all(&[context.poke_config.channel.as_str()])
                 .await
                 .context("Failed to rejoin channels after reconnect")
         }
         Message::Ping(ping) => client.pong(&ping).await.context("Failed to pong irc"),
         Message::Privmsg(privmsg) => {
-            should_self_destruct(&privmsg, &context);
-            handle_pokemon_message(privmsg, &context).await
+            should_self_destruct(&privmsg, context);
+            handle_pokemon_message(privmsg, context).await
         }
         _ => Ok(()),
     }

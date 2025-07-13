@@ -35,4 +35,5 @@ pub struct PokeConfig {
     pub should_buy_pokeball: bool,
     pub pokeball_buy_amount: u8,
     pub stop_on_no_money: bool,
+    pub channel: String,
 }
