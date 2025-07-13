@@ -1,0 +1,14 @@
+[package]
+name = "auth-handler"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+tokio = { workspace = true }
+tracing = { workspace = true }
+anyhow = { workspace = true }
+
+reqwest = "0.12.22"
+twitch_oauth2 = { version = "0.15.1", features = ["reqwest"] }
+
+config-handler = { path = "../config-handler" }

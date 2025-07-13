@@ -1,0 +1,15 @@
+[package]
+name = "pokecatcher"
+version = "0.1.0"
+edition = { workspace = true }
+
+[dependencies]
+tmi = "0.9"
+tracing-subscriber = "0.3.19"
+
+anyhow = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+
+auth-handler = { path = "../../crates/auth-handler" }
+config-handler = { path = "../../crates/config-handler" }

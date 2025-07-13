@@ -1,0 +1,16 @@
+[workspace]
+resolver = "3"
+
+members = [
+    "apps/pokecatcher"
+    , "crates/auth-handler", "crates/config-handler"]
+
+[workspace.dependencies]
+tokio = { version = "1.46.1", default-features = false, features = ["full"] }
+tracing = "0.1.41"
+anyhow = "1.0"
+serde = { version = "1.0.219", features = ["derive"] }
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
