@@ -2,15 +2,24 @@
 resolver = "3"
 
 members = [
-    "apps/pokecatcher"
-    , "crates/auth-handler", "crates/config-handler"]
+    "apps/pokecatcher",
+    "crates/auth-handler",
+    "crates/config-handler"
+]
 
 [workspace.dependencies]
-tokio = { version = "1.46.1", default-features = false, features = ["full"] }
-tracing = "0.1.41"
+tokio = { version = "1.46.1", default-features = false, features = ["rt", "process", "macros"] }
+tracing = { version = "0.1.41", features = ["release_max_level_info"] }
 anyhow = "1.0"
 serde = { version = "1.0.219", features = ["derive"] }
 
 [workspace.package]
 version = "0.1.0"
 edition = "2024"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+opt-level = "z"
+strip = "debuginfo"

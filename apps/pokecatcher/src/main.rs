@@ -17,7 +17,7 @@ use crate::context::{BotContext, SendMessageDto};
 use crate::message_interface::handle_message;
 use crate::utils::{load_auth_config, load_config, write_auth_config};
 
-#[tokio::main]
+#[tokio::main(flavor = "current_thread")]
 async fn main() {
     tracing_subscriber::fmt()
         .with_max_level(LevelFilter::DEBUG)
